@@ -26,7 +26,9 @@ import org.apache.seatunnel.api.table.type.SeaTunnelRowType;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -134,5 +136,9 @@ public interface SeaTunnelSink<IN, StateT, CommitInfoT, AggregatedCommitInfoT>
      */
     default Optional<Serializer<AggregatedCommitInfoT>> getAggregatedCommitInfoSerializer() {
         return Optional.empty();
+    }
+
+    default Map<String, String> getPluginConfig() {
+        return new HashMap<>();
     }
 }
