@@ -20,6 +20,7 @@
 
 package org.apache.seatunnel.engine.checkpoint.storage.hdfs.common;
 
+import org.apache.hadoop.fs.Path;
 import org.apache.seatunnel.engine.checkpoint.storage.exception.CheckpointStorageException;
 
 import org.apache.commons.lang3.StringUtils;
@@ -56,6 +57,8 @@ public class HdfsConfiguration extends AbstractConfiguration {
             throws CheckpointStorageException {
         checkConfiguration(config, HDFS_DEF_FS_NAME);
         Configuration hadoopConf = new Configuration();
+        hadoopConf.addResource(new Path("/opt/usdp-srv/srv/udp/2.0.0.0/hdfs/etc/hadoop/core-site.xml"));
+        hadoopConf.addResource(new Path("/opt/usdp-srv/srv/udp/2.0.0.0/hdfs/etc/hadoop/hdfs-site.xml"));
         if (config.containsKey(HDFS_DEF_FS_NAME)) {
             hadoopConf.set(HDFS_DEF_FS_NAME, config.get(HDFS_DEF_FS_NAME));
         }
