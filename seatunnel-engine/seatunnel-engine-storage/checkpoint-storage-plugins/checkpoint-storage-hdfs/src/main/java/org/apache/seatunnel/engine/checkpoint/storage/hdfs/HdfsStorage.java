@@ -64,6 +64,8 @@ public class HdfsStorage extends AbstractCheckpointStorage {
             configuration.remove(STORAGE_NAME_SPACE);
         }
         Configuration hadoopConf = getConfiguration(configuration);
+        hadoopConf.addResource(new Path("/opt/usdp-srv/srv/udp/2.0.0.0/hdfs/etc/hadoop/core-site.xml"));
+        hadoopConf.addResource(new Path("/opt/usdp-srv/srv/udp/2.0.0.0/hdfs/etc/hadoop/hdfs-site.xml"));
         try {
             fs = FileSystem.get(hadoopConf);
         } catch (IOException e) {
