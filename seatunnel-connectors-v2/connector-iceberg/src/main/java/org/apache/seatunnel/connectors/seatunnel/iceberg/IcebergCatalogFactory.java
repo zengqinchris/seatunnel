@@ -17,6 +17,8 @@
 
 package org.apache.seatunnel.connectors.seatunnel.iceberg;
 
+import org.apache.hadoop.fs.Path;
+import org.apache.seatunnel.common.exception.CommonErrorCode;
 import org.apache.seatunnel.common.exception.CommonErrorCodeDeprecated;
 import org.apache.seatunnel.connectors.seatunnel.iceberg.config.IcebergCatalogType;
 import org.apache.seatunnel.connectors.seatunnel.iceberg.exception.IcebergConnectorException;
@@ -57,6 +59,10 @@ public class IcebergCatalogFactory implements Serializable {
 
     public Catalog create() {
         Configuration conf = new Configuration();
+        conf.set("fs.hdfs.impl", org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());
+        conf.set("fs.file.impl", org.apache.hadoop.fs.LocalFileSystem.class.getName());
+        conf.addResource(new Path("/opt/usdp-srv/srv/udp/2.0.0.0/hdfs/etc/hadoop/core-site.xml"));
+        conf.addResource(new Path("/opt/usdp-srv/srv/udp/2.0.0.0/hdfs/etc/hadoop/hdfs-site.xml"));
         SerializableConfiguration serializableConf = new SerializableConfiguration(conf);
         Map<String, String> properties = new HashMap<>();
         properties.put(CatalogProperties.WAREHOUSE_LOCATION, warehouse);
